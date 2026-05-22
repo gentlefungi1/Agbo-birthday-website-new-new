@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Endurance 🎂</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ PARTICLES LAYER (shared, always behind) ░░ -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <!-- ░░ PAGE TRANSITION OVERLAY ░░ -->
+  <div id="overlay" aria-hidden="true"></div>
+
+  <!-- ════════════════════════════════════════
+       VIEW 1 — COUNTDOWN
+  ════════════════════════════════════════ -->
+  <section id="view-countdown" class="view active">
+    <div class="glass-card card-center">
+
+      <p class="eyebrow">something special is coming</p>
+      <h1 class="display-title">
+        <span style="font-style: normal;">🎂</span> Endurance's<br/>Special Day
+      </h1>
+      <p class="subtitle">Every second brings us closer to something beautiful ✨</p>
+
+      <div class="countdown-grid">
+        <div class="clock-block glass-card">
+          <span id="days"   class="clock-num">00</span>
+          <span class="clock-label">days</span>
+        </div>
+        <div class="clock-block glass-card">
+          <span id="hours"  class="clock-num">00</span>
+          <span class="clock-label">hours</span>
+        </div>
+        <div class="clock-block glass-card">
+          <span id="minutes" class="clock-num">00</span>
+          <span class="clock-label">minutes</span>
+        </div>
+        <div class="clock-block glass-card pulse">
+          <span id="seconds" class="clock-num">00</span>
+          <span class="clock-label">seconds</span>
+        </div>
+      </div>
+
+      <!-- Only visible on birthday -->
+      <div id="enter-wrap" class="hidden" style="margin-top:2.5rem;">
+        <button class="main-btn" onclick="App.go('reveal')">
+          🎉 Open Your Birthday Surprise
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       VIEW 2 — REVEAL
+  ════════════════════════════════════════ -->
+  <section id="view-reveal" class="view">
+    <div class="glass-card card-center text-center">
+
+      <p class="eyebrow">today is the day</p>
+      <h1 class="display-title hero-name">
+        Happy Birthday,<br/>To The Love Of My Life <span style="font-style: normal;">❤️</span>
+      </h1>
+      <p class="subtitle" style="max-width:520px; margin: 0 auto 2.5rem;">
+        You deserve every good thing this world has to offer.
+        Today is entirely, beautifully yours.
+      </p>
+      <button class="main-btn" onclick="App.go('memories')">
+        Open Your Surprise ✨
+      </button>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       VIEW 3 — MEMORY CARDS
+  ════════════════════════════════════════ -->
+  <section id="view-memories" class="view">
+    <div class="view-inner">
+
+      <p class="eyebrow text-center">a few things worth saying</p>
+      <h2 class="section-title text-center">Beautiful Things About You ✨</h2>
+
+      <div class="cards-grid">
+
+        <div class="memory-card glass-card stagger-1">
+          <span class="card-emoji">💖</span>
+          <h3 class="card-heading">Your Smile</h3>
+          <p class="card-body">Your smile isn’t just something I see, it’s something I feel. It has this quiet way of softening everything around it, like the world pauses for a second just to admire it. It’s honest, rare, and effortlessly beautiful, the kind of smile that makes someone remember you even in your absence. ❤️</p>
+        </div>
+
+        <div class="memory-card glass-card stagger-2">
+          <span class="card-emoji">🌸</span>
+          <h3 class="card-heading">Your Heart</h3>
+          <p class="card-body">You have a heart that loves deeply and cares sincerely, and that’s rare. In a world where people pretend so much, you remain genuine, kind, and effortlessly beautiful from the inside out.</p>
+        </div>
+
+        <div class="memory-card glass-card stagger-3">
+          <span class="card-emoji">✨</span>
+          <h3 class="card-heading">Your Future</h3>
+          <p class="card-body">There’s something about you that makes me certain your future will be amazing. You deserve a life filled with happiness, success, peace, and the kind of love that never makes you question your worth.</p>
+        </div>
+
+        <div class="memory-card glass-card stagger-4">
+          <span class="card-emoji">💪</span>
+          <h3 class="card-heading">Your Strength</h3>
+          <p class="card-body">You are stronger than you think. Even when life tests you, you still find a way to rise, to smile, and to keep moving forward. That strength in you is quietly inspiring.</p>
+        </div>
+
+        <div class="memory-card glass-card stagger-5">
+          <span class="card-emoji">🤣</span>
+          <h3 class="card-heading">Your Humour</h3>
+          <p class="card-body">One thing about you? You make life feel easy. Your humour, your playful energy, and the way you make me laugh create moments I never want to forget.</p>
+        </div>
+
+        <div class="memory-card glass-card stagger-6">
+          <span class="card-emoji">🎂</span>
+          <h3 class="card-heading">Simply You</h3>
+          <p class="card-body">And beyond all these things, simply you. The way you exist, love, smile, think, and care makes you unforgettable. There’s nobody else like you, Agbo. ❤️</p>
+        </div>
+
+      </div>
+
+      <div class="text-center" style="margin-top: 3rem;">
+        <button class="main-btn" onclick="App.go('gallery')">
+          Continue the Journey 📸
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       VIEW 4 — PHOTO GALLERY
+  ════════════════════════════════════════ -->
+  <section id="view-gallery" class="view">
+    <div class="view-inner">
+
+      <p class="eyebrow text-center">a walk down memory lane</p>
+      <h2 class="section-title text-center">Few Of My Favourite Photos Of You <span style="font-style: normal;">📸</span></h2>
+
+      <div class="gallery-grid">
+
+        <!-- To add your photo: replace the placeholder div with <img src="assets/photo1.jpg" alt="..." /> -->
+        <div class="polaroid glass-card stagger-1" style="--rotate: -3deg;">
+          <div class="photo-placeholder"><img src="./birthday pics/IMG-20260113-WA0033.jpg" alt=""></div>
+          <p class="polaroid-caption">Most beautiful girl in the world <span style="font-style: normal;">🥰</span></p>
+        </div>
+
+        <div class="polaroid glass-card stagger-2" style="--rotate: 2deg;">
+          <div class="photo-placeholder"><img src="./birthday pics/IMG-20251225-WA0008~2.jpg" alt=""></div>
+          <p class="polaroid-caption">Smiles that last forever <span style="font-style: normal;">✨</span></p>
+        </div>
+
+        <div class="polaroid glass-card stagger-3" style="--rotate: -1.5deg;">
+          <div class="photo-placeholder"><img src="./birthday pics/IMG-20250411-WA0018.jpg" alt=""></div>
+          <p class="polaroid-caption">Lol, what were you looking at? <span style="font-style: normal;">🤣</span></p>
+        </div>
+
+        <div class="polaroid glass-card stagger-4" style="--rotate: 3deg;">
+          <div class="photo-placeholder"><img src="./birthday pics/IMG-20251210-WA0012.jpg" alt=""></div>
+          <p class="polaroid-caption">Still my favourite picture <span style="font-style: normal;">🌹</span></p>
+        </div>
+
+        <div class="polaroid glass-card stagger-5" style="--rotate: -2deg;">
+          <div class="photo-placeholder"><img src="./birthday pics/IMG-20260410-WA0002~2-2.jpg" alt=""></div>
+          <p class="polaroid-caption">I have this as your contact phone <span style="font-style: normal;">❤️</span></p>
+        </div>
+
+        <div class="polaroid glass-card stagger-6" style="--rotate: 1deg;">
+          <div class="photo-placeholder"><img src="./birthday pics/IMG-20260522-WA0003~2.jpg" alt=""></div>
+          <p class="polaroid-caption">Just do your thing babe, there's nobody hotter <span style="font-style: normal;">😘</span></p>
+        </div>
+
+      </div>
+
+      <div class="text-center" style="margin-top: 3.5rem;">
+        <button class="main-btn" onclick="App.go('letter')">
+          One Last Thing 💌
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       VIEW 5 — FINAL LETTER
+  ════════════════════════════════════════ -->
+  <section id="view-letter" class="view letter-view">
+    <div class="glass-card card-center text-center letter-card">
+
+      <p class="eyebrow">from me, to you</p>
+      <h2 class="section-title">A Little Note 💌</h2>
+
+      <div class="letter-body">
+        <p>I want this to be simple and honest, from me to you.</p>
+        <p>
+          Out of everyone I've met, you're the one who stands out
+          in a way I can't ignore or replace. You're my one and only —
+          not just because of how you look, but because of how you make
+          me feel whenever I talk to you or even think about you.
+        </p>
+        <p>
+          I choose you, genuinely and consistently. You mean something
+          real to me, and I hope today reminds you just how special you
+          are — to the world, and especially to me. ❤️🎂
+        </p>
+        <p>Happy Birthday ❤️</p>
+      </div>
+
+      <p class="letter-sign">— with love, always<br> Kelvin ❤️</p>
+
+      <button class="main-btn ghost-btn" style="margin-top:2.5rem;" onclick="App.celebrate()">
+        🎊 Celebrate Again!
+      </button>
+
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
