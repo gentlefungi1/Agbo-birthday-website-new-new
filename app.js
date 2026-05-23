@@ -70,6 +70,20 @@ const App = {
   celebrate() {
     launchConfetti('burst');
   },
+
+  toggleMusic() {
+    const music  = document.getElementById('bgMusic');
+    const btn    = document.getElementById('musicToggle');
+    if (!music || !btn) return;
+
+    if (music.paused) {
+      music.play();
+      btn.textContent = '⏸ Pause Music';
+    } else {
+      music.pause();
+      btn.textContent = '▶ Play Music';
+    }
+  },
 };
 
 
@@ -330,7 +344,7 @@ registerView('gallery', {
 registerView('letter', {
   onEnter() {
     setTimeout(() => launchConfetti('rain'), 800);
-    fadeOutMusic(); // music gently fades out on final page
+    // music plays on naturally until the song ends
   },
 });
 
