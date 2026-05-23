@@ -499,19 +499,20 @@ body {
 
 .letter-card {
   max-width: 640px;
+  height: 100%;
 }
 
 .letter-body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   margin: 1rem 0 0.5rem;
 }
 
 .letter-body p {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1rem, 2vw, 1rem);
+  font-size: clamp(1rem, 1vw, 1rem);
   color: var(--white);
   line-height: 1.4;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
@@ -522,7 +523,7 @@ body {
   font-style: italic;
   font-size: 1.1rem;
   color: var(--white-60);
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 
