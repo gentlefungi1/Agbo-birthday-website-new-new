@@ -10,19 +10,18 @@
  */
 
 // ─────────────────────────────────────────
-// CONFIG — update these to match the person
+// CONFIG
 // ─────────────────────────────────────────
 const CONFIG = {
   name:       'Endurance',
   birthYear:  2002,
-  birthMonth: 7,    // 1-indexed (7 = July)
+  birthMonth: 7,   // 1-indexed (7 = July)
   birthDay:   15,
 };
 
 
 // ─────────────────────────────────────────
 // VIEW REGISTRY
-// Each entry: { el, onEnter?, onExit? }
 // ─────────────────────────────────────────
 const views = {};
 
@@ -40,7 +39,6 @@ const App = {
 
   current: 'countdown',
 
-  /** Navigate to a named view with a cinematic transition */
   go(next) {
     if (next === this.current) return;
 
@@ -48,21 +46,20 @@ const App = {
     const to   = views[next];
     if (!from || !to) return;
 
-    // 1. Flash overlay (white flash, like a camera)
     const overlay = document.getElementById('overlay');
     overlay.classList.add('flash');
 
-    // 2. Exit current view
     if (from.onExit) from.onExit();
     from.el.classList.remove('active');
     from.el.classList.add('exit');
 
     setTimeout(() => {
-      // 3. Clean up exited view
       from.el.classList.remove('exit');
       overlay.classList.remove('flash');
 
-      // 4. Enter new view
+      // Scroll to top so content-heavy views always start from top
+      window.scrollTo(0, 0);
+
       to.el.classList.add('active');
       if (to.onEnter) to.onEnter();
 
@@ -70,7 +67,6 @@ const App = {
     }, 380);
   },
 
-  /** Re-fire confetti without changing view */
   celebrate() {
     launchConfetti('burst');
   },
@@ -96,6 +92,39 @@ function launchConfetti(style = 'burst') {
       if (++count >= 8) clearInterval(rain);
     }, 300);
   }
+}
+
+
+// ─────────────────────────────────────────
+// MUSIC
+// ─────────────────────────────────────────
+function startMusic() {
+  const music = document.getElementById('bgMusic');
+  if (!music) return;
+  music.volume = 0;
+  music.play().catch(() => {}); // silently handle autoplay policy
+
+  let vol = 0;
+  const fadeIn = setInterval(() => {
+    vol = Math.min(vol + 0.05, 0.6);
+    music.volume = vol;
+    if (vol >= 0.6) clearInterval(fadeIn);
+  }, 100);
+}
+
+function fadeOutMusic() {
+  const music = document.getElementById('bgMusic');
+  if (!music) return;
+
+  let vol = music.volume;
+  const fadeOut = setInterval(() => {
+    vol = Math.max(vol - 0.03, 0);
+    music.volume = vol;
+    if (vol <= 0) {
+      music.pause();
+      clearInterval(fadeOut);
+    }
+  }, 100);
 }
 
 
@@ -147,11 +176,58 @@ function initParticles() {
 
 
 // ─────────────────────────────────────────
-// STAGGER ANIMATION — for cards/polaroids
+// LIGHTBOX
+// ─────────────────────────────────────────
+function initLightbox() {
+  const lightbox    = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCap = document.getElementById('lightbox-caption');
+  const closeBtn    = document.getElementById('lightbox-close');
+
+  if (!lightbox) return;
+
+  // Open when any polaroid with a real <img> is tapped/clicked
+  document.getElementById('view-gallery').addEventListener('click', e => {
+    const polaroid = e.target.closest('.polaroid');
+    if (!polaroid) return;
+
+    const img     = polaroid.querySelector('img');
+    const caption = polaroid.querySelector('.polaroid-caption')?.textContent || '';
+
+    if (!img) return; // ignore placeholder-only polaroids
+
+    lightboxImg.src         = img.src;
+    lightboxImg.alt         = img.alt;
+    lightboxCap.textContent = caption;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Close on ✕ button
+  closeBtn.addEventListener('click', closeLightbox);
+
+  // Close on backdrop click
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+
+// ─────────────────────────────────────────
+// STAGGER ANIMATION
 // ─────────────────────────────────────────
 function triggerStagger(viewEl) {
   const items = viewEl.querySelectorAll('.memory-card, .polaroid');
-  // Reset first (so re-entering re-animates)
   items.forEach(el => el.classList.remove('visible'));
   requestAnimationFrame(() => {
     items.forEach(el => el.classList.add('visible'));
@@ -169,7 +245,6 @@ function initCountdown() {
   const elSeconds = document.getElementById('seconds');
   const enterWrap = document.getElementById('enter-wrap');
 
-
   function isBirthdayToday() {
   return true; // force birthday mode for testing
 }
@@ -178,24 +253,19 @@ function initCountdown() {
   //   const now = new Date();
   //   return now.getMonth() === CONFIG.birthMonth - 1 &&
   //          now.getDate()  === CONFIG.birthDay;
+  //   // ── TESTING: replace the two lines above with: return true;
   // }
 
   function getTarget() {
-    const now  = new Date();
-    const curr = now.getFullYear();
+    const now      = new Date();
+    const curr     = now.getFullYear();
+    const thisYear = new Date(curr, CONFIG.birthMonth - 1, CONFIG.birthDay, 0, 0, 0);
 
-    // Birthday this year, but only if it hasn't passed yet today
-    const thisYear = new Date(curr, CONFIG.birthMonth - 1, CONFIG.birthDay, 0, 0, 0); // ← changed
-
-    // If today IS the birthday, don't calculate a target — tick() handles it
-    // If birthday is still ahead this year, count to it
-    // If birthday already passed this year, count to next year
     if (isBirthdayToday()) return null;
+    if (now < thisYear)    return thisYear;
 
-    if (now < thisYear) return thisYear;
-
-    return new Date(curr + 1, CONFIG.birthMonth - 1, CONFIG.birthDay, 0, 0, 0); // ← changed (also added next year + midnight)
-
+    // Birthday already passed this year — count to next year
+    return new Date(curr + 1, CONFIG.birthMonth - 1, CONFIG.birthDay, 0, 0, 0);
   }
 
   function showBirthdayState() {
@@ -241,6 +311,7 @@ registerView('countdown');
 registerView('reveal', {
   onEnter() {
     launchConfetti('burst');
+    startMusic(); // music starts here, plays through all remaining views
   },
 });
 
@@ -259,6 +330,7 @@ registerView('gallery', {
 registerView('letter', {
   onEnter() {
     setTimeout(() => launchConfetti('rain'), 800);
+    fadeOutMusic(); // music gently fades out on final page
   },
 });
 
@@ -268,9 +340,9 @@ registerView('letter', {
 // ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initParticles();
+  initLightbox();
   initCountdown();
 
-  // Make sure the first view is visible
   const first = views['countdown'];
   if (first) first.el.classList.add('active');
 });
