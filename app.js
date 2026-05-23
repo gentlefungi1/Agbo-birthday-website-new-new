@@ -57,8 +57,9 @@ const App = {
       from.el.classList.remove('exit');
       overlay.classList.remove('flash');
 
-      // Scroll to top so content-heavy views always start from top
-      window.scrollTo(0, 0);
+      // Scroll the view element itself to top (not window)
+      // This is the correct fix for overflow-y: auto views
+      to.el.scrollTop = 0;
 
       to.el.classList.add('active');
       if (to.onEnter) to.onEnter();
@@ -72,8 +73,8 @@ const App = {
   },
 
   toggleMusic() {
-    const music  = document.getElementById('bgMusic');
-    const btn    = document.getElementById('musicToggle');
+    const music = document.getElementById('bgMusic');
+    const btn   = document.getElementById('musicToggle');
     if (!music || !btn) return;
 
     if (music.paused) {
@@ -116,7 +117,7 @@ function startMusic() {
   const music = document.getElementById('bgMusic');
   if (!music) return;
   music.volume = 0;
-  music.play().catch(() => {}); // silently handle autoplay policy
+  music.play().catch(() => {});
 
   let vol = 0;
   const fadeIn = setInterval(() => {
@@ -200,7 +201,6 @@ function initLightbox() {
 
   if (!lightbox) return;
 
-  // Open when any polaroid with a real <img> is tapped/clicked
   document.getElementById('view-gallery').addEventListener('click', e => {
     const polaroid = e.target.closest('.polaroid');
     if (!polaroid) return;
@@ -208,7 +208,7 @@ function initLightbox() {
     const img     = polaroid.querySelector('img');
     const caption = polaroid.querySelector('.polaroid-caption')?.textContent || '';
 
-    if (!img) return; // ignore placeholder-only polaroids
+    if (!img) return;
 
     lightboxImg.src         = img.src;
     lightboxImg.alt         = img.alt;
@@ -217,15 +217,12 @@ function initLightbox() {
     document.body.style.overflow = 'hidden';
   });
 
-  // Close on ✕ button
   closeBtn.addEventListener('click', closeLightbox);
 
-  // Close on backdrop click
   lightbox.addEventListener('click', e => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Close on Escape key
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
   });
@@ -260,14 +257,14 @@ function initCountdown() {
   const enterWrap = document.getElementById('enter-wrap');
 
   function isBirthdayToday() {
-  return true; // force birthday mode for testing
-}
+    return true; // force birthday mode for testing
+  }
 
   // function isBirthdayToday() {
   //   const now = new Date();
   //   return now.getMonth() === CONFIG.birthMonth - 1 &&
   //          now.getDate()  === CONFIG.birthDay;
-  //   // ── TESTING: replace the two lines above with: return true;
+  //   // ── TESTING: comment the two lines above and use: return true;
   // }
 
   function getTarget() {
@@ -278,7 +275,6 @@ function initCountdown() {
     if (isBirthdayToday()) return null;
     if (now < thisYear)    return thisYear;
 
-    // Birthday already passed this year — count to next year
     return new Date(curr + 1, CONFIG.birthMonth - 1, CONFIG.birthDay, 0, 0, 0);
   }
 
@@ -325,7 +321,7 @@ registerView('countdown');
 registerView('reveal', {
   onEnter() {
     launchConfetti('burst');
-    startMusic(); // music starts here, plays through all remaining views
+    startMusic();
   },
 });
 
