@@ -380,7 +380,6 @@ body {
   transform: rotate(0deg) scale(0.97);
 }
 
-/* The actual photo inside a polaroid */
 .polaroid img {
   width: 100%;
   aspect-ratio: 4/3;
@@ -389,7 +388,6 @@ body {
   display: block;
 }
 
-/* Placeholder when no real photo yet */
 .photo-placeholder {
   width: 100%;
   aspect-ratio: 4/3;
@@ -493,27 +491,30 @@ body {
    FINAL LETTER
 ═══════════════════════════════════════════ */
 .letter-view {
-  /* Slight dim overlay to calm the energy */
   background: rgba(0,0,0,0.15);
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 .letter-card {
   max-width: 640px;
+  padding: 2.5rem 2rem;
 }
 
 .letter-body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin: 1rem 0 0.5rem;
 }
 
 .letter-body p {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-size: clamp(1rem, 2.8vw, 1.35rem);
   color: var(--white);
-  line-height: 1.4;
+  line-height: 1.65;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
 }
 
@@ -522,7 +523,8 @@ body {
   font-style: italic;
   font-size: 1.1rem;
   color: var(--white-60);
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  line-height: 1.6;
 }
 
 
@@ -556,4 +558,77 @@ body {
   .subtitle { margin-bottom: 1rem; }
   .countdown-grid { gap: 0.5rem; }
   .clock-block { padding: 0.75rem 0.5rem; }
+}
+
+/* ── Letter page: small phones (≤ 480px) ── */
+@media (max-width: 480px) {
+  .letter-card {
+    padding: 1.75rem 1.25rem 2rem;
+    border-radius: 20px;
+  }
+
+  .letter-view .section-title {
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .letter-view .eyebrow {
+    font-size: 0.65rem;
+  }
+
+  .letter-body {
+    gap: 1rem;
+    margin: 0.75rem 0 0.25rem;
+    text-align: left;
+  }
+
+  .letter-body p {
+    font-size: clamp(0.95rem, 4vw, 1.05rem);
+    line-height: 1.7;
+  }
+
+  .letter-sign {
+    font-size: 1rem;
+    margin-top: 1.25rem;
+    text-align: left;
+  }
+
+  /* Stack buttons full-width */
+  .letter-card .btn-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    margin-top: 1.75rem !important;
+  }
+
+  .letter-card .btn-row .main-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ── Letter page: short viewports (landscape / notched) ── */
+@media (max-height: 680px) {
+  .letter-view {
+    align-items: flex-start;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .letter-card {
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+
+  .letter-body {
+    gap: 0.875rem;
+  }
+
+  .letter-body p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .letter-sign {
+    margin-top: 1rem;
+  }
 }
