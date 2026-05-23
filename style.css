@@ -504,14 +504,14 @@ body {
 .letter-body {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.5rem;
   margin: 1rem 0 0.5rem;
 }
 
 .letter-body p {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-size: clamp(1rem, 2vw, 1rem);
   color: var(--white);
   line-height: 1.4;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
@@ -540,7 +540,7 @@ body {
 
 /* Regular phones */
 @media (max-width: 640px) {
-  .card-center { padding: 2rem 1rem; }
+  .card-center { padding: 2.25rem 1.5rem; }
   .cards-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.875rem; }
   .polaroid { --rotate: 0deg !important; }
