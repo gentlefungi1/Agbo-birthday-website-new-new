@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Endurance 🎂</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style (6).css" />
 </head>
 <body>
 
   <!-- ░░ BACKGROUND MUSIC ░░ -->
-  <audio id="bgMusic">
-    <source src="assets/Chris Brown - With You.mp3" type="audio/mpeg" />
-  </audio>
+  <!-- <audio id="bgMusic">
+    <source src="assets/Rybeena - Spaghetti.mp3" type="audio/mpeg" />
+  </audio> -->
 
-  <!-- ░░ PARTICLES LAYER (shared, always behind) ░░ -->
+  <!-- ░░ PARTICLES ░░ -->
   <canvas id="particles" aria-hidden="true"></canvas>
 
   <!-- ░░ PAGE TRANSITION OVERLAY ░░ -->
@@ -60,8 +59,7 @@
         </div>
       </div>
 
-      <!-- Only visible on birthday -->
-      <div id="enter-wrap" class="hidden" style="margin-top:2.5rem;">
+      <div id="enter-wrap" class="hidden">
         <button class="main-btn" onclick="App.go('reveal')">
           🎉 Open Your Birthday Surprise
         </button>
@@ -70,17 +68,18 @@
     </div>
   </section>
 
+
   <!-- ════════════════════════════════════════
        VIEW 2 — REVEAL
   ════════════════════════════════════════ -->
   <section id="view-reveal" class="view">
-    <div class="glass-card card-center text-center">
+    <div class="glass-card card-center">
 
       <p class="eyebrow">today is the day</p>
       <h1 class="display-title hero-name">
         Happy Birthday,<br/>To The Love Of My Life <span style="font-style:normal;">❤️</span>
       </h1>
-      <p class="subtitle" style="max-width:520px; margin: 0 auto 2.5rem;">
+      <p class="subtitle">
         You deserve every good thing this world has to offer.
         Today is entirely, beautifully yours.
       </p>
@@ -91,6 +90,7 @@
     </div>
   </section>
 
+
   <!-- ════════════════════════════════════════
        VIEW 3 — MEMORY CARDS
   ════════════════════════════════════════ -->
@@ -98,14 +98,14 @@
     <div class="view-inner">
 
       <p class="eyebrow text-center">a few things worth saying</p>
-      <h2 class="section-title text-center">Beautiful Things About You ✨</h2>
+      <h2 class="section-title">Beautiful Things About You ✨</h2>
 
       <div class="cards-grid">
 
         <div class="memory-card glass-card stagger-1">
           <span class="card-emoji">💖</span>
           <h3 class="card-heading">Your Smile</h3>
-          <p class="card-body">Your smile isn't just something I see, it's something I feel. It has this quiet way of softening everything around it, like the world pauses for a second just to admire it. It's honest, rare, and effortlessly beautiful, the kind of smile that makes someone remember you even in your absence. ❤️</p>
+          <p class="card-body">Your smile isn't just something I see, it's something I feel. It has this quiet way of softening everything around it, like the world pauses for a second just to admire it. It's honest, rare, and effortlessly beautiful — the kind of smile that makes someone remember you even in your absence. ❤️</p>
         </div>
 
         <div class="memory-card glass-card stagger-2">
@@ -140,7 +140,7 @@
 
       </div>
 
-      <div class="text-center" style="margin-top: 3rem;">
+      <div class="cta-wrap">
         <button class="main-btn" onclick="App.go('gallery')">
           Continue the Journey 📸
         </button>
@@ -149,6 +149,7 @@
     </div>
   </section>
 
+
   <!-- ════════════════════════════════════════
        VIEW 4 — PHOTO GALLERY
   ════════════════════════════════════════ -->
@@ -156,53 +157,53 @@
     <div class="view-inner">
 
       <p class="eyebrow text-center">a walk down memory lane</p>
-      <h2 class="section-title text-center">Few Of My Favourite Photos Of You <span style="font-style:normal;">📸</span></h2>
+      <h2 class="section-title">Few Of My Favourite Photos Of You <span style="font-style:normal;">📸</span></h2>
 
       <div class="gallery-grid">
 
-        <div class="polaroid glass-card stagger-1" style="--rotate: -3deg;">
-          <img src="./birthday pics/IMG-20260113-WA0033.jpg" alt="Memory 1" />
+        <div class="polaroid glass-card stagger-1" style="--rotate:-3deg">
+          <img src="./birthday pics/IMG-20260113-WA0033.jpg" alt="Memory 1" draggable="false" />
           <p class="polaroid-caption">Most beautiful girl in the world <span style="font-style:normal;">🥰</span></p>
         </div>
 
-        <div class="polaroid glass-card stagger-2" style="--rotate: 2deg;">
-          <img src="./birthday pics/IMG-20251225-WA0008~2.jpg" alt="Memory 2" />
+        <div class="polaroid glass-card stagger-2" style="--rotate:2deg">
+          <img src="./birthday pics/IMG-20251225-WA0008~2.jpg" alt="Memory 2" draggable="false" />
           <p class="polaroid-caption">Smiles that last forever <span style="font-style:normal;">✨</span></p>
         </div>
 
-        <div class="polaroid glass-card stagger-3" style="--rotate: -1.5deg;">
-          <img src="./birthday pics/IMG-20250411-WA0018.jpg" alt="Memory 3" />
+        <div class="polaroid glass-card stagger-3" style="--rotate:-1.5deg">
+          <img src="./birthday pics/IMG-20250411-WA0018.jpg" alt="Memory 3" draggable="false" />
           <p class="polaroid-caption">Lol, what were you looking at? <span style="font-style:normal;">🤣</span></p>
         </div>
 
-        <div class="polaroid glass-card stagger-4" style="--rotate: 3deg;">
-          <img src="./birthday pics/IMG-20251210-WA0012.jpg" alt="Memory 4" />
+        <div class="polaroid glass-card stagger-4" style="--rotate:3deg">
+          <img src="./birthday pics/IMG-20251210-WA0012.jpg" alt="Memory 4" draggable="false" />
           <p class="polaroid-caption">Still my favourite picture <span style="font-style:normal;">🌹</span></p>
         </div>
 
-        <div class="polaroid glass-card stagger-5" style="--rotate: -2deg;">
-          <img src="./birthday pics/IMG-20260410-WA0002~2-2.jpg" alt="Memory 5" />
+        <div class="polaroid glass-card stagger-5" style="--rotate:-2deg">
+          <img src="./birthday pics/IMG-20260410-WA0002~2-2.jpg" alt="Memory 5" draggable="false" />
           <p class="polaroid-caption">I have this as your contact photo <span style="font-style:normal;">❤️</span></p>
         </div>
 
-        <div class="polaroid glass-card stagger-6" style="--rotate: 1deg;">
-          <img src="./birthday pics/IMG-20260522-WA0003~2.jpg" alt="Memory 6" />
+        <div class="polaroid glass-card stagger-6" style="--rotate:1deg">
+          <img src="./birthday pics/IMG-20260522-WA0003~2.jpg" alt="Memory 6" draggable="false" />
           <p class="polaroid-caption">Just do your thing babe, there's nobody hotter <span style="font-style:normal;">😘</span></p>
         </div>
 
-        <div class="polaroid glass-card stagger-6" style="--rotate: 1deg;">
-          <img src="./birthday pics/IMG-20260124-WA0047.jpg" alt="Memory 7" />
+        <div class="polaroid glass-card stagger-6" style="--rotate:-1deg">
+          <img src="./birthday pics/IMG-20260124-WA0047.jpg" alt="Memory 7" draggable="false" />
           <p class="polaroid-caption">Soft heart, strong mind, beautiful soul <span style="font-style:normal;">👸🏽</span></p>
         </div>
 
-        <div class="polaroid glass-card stagger-6" style="--rotate: 1deg;">
-          <img src="./birthday pics/IMG-20250216-WA0014.jpg" alt="Memory 8" />
+        <div class="polaroid glass-card stagger-6" style="--rotate:2deg">
+          <img src="./birthday pics/IMG-20250216-WA0014.jpg" alt="Memory 8" draggable="false" />
           <p class="polaroid-caption">Lol, you know i had to throw this one in here <span style="font-style:normal;">😜</span></p>
         </div>
 
       </div>
 
-      <div class="text-center" style="margin-top: 3.5rem;">
+      <div class="cta-wrap">
         <button class="main-btn" onclick="App.go('letter')">
           One Last Thing 💌
         </button>
@@ -211,36 +212,27 @@
     </div>
   </section>
 
+
   <!-- ════════════════════════════════════════
        VIEW 5 — FINAL LETTER
   ════════════════════════════════════════ -->
-  <section id="view-letter" class="view letter-view">
-    <div class="glass-card card-center text-center letter-card">
+  <section id="view-letter" class="view">
+    <div class="glass-card letter-card">
 
       <p class="eyebrow">from me, to you</p>
       <h2 class="section-title">A Little Note <span style="font-style:normal;">💌</span></h2>
 
       <div class="letter-body">
         <p>I want this to be simple and honest, from me to you.</p>
-        <p>
-          Out of everyone I've ever met, you're the one who stands out
-          in a way I can't ignore or replace. You're my one and only,
-          not just because of how you look, but because of how you make
-          me feel when I talk to you, think about you, or even just
-          see you happy.
-        </p>
+        <p>Out of everyone I've ever met, you're the one who stands out in a way I can't ignore or replace. You're my one and only — not just because of how you look, but because of how you make me feel when I talk to you, think about you, or even just see you happy.</p>
         <p>I choose you, genuinely and consistently. And I don't say that lightly.</p>
-        <p>
-          You mean so much to me, and I hope today reminds you
-          just how special you are, not just to the world,
-          but to me especially. <span style="font-style:normal;">❤️🎂</span>
-        </p>
+        <p>You mean so much to me, and I hope today reminds you just how special you are — not just to the world, but to me especially. <span style="font-style:normal;">❤️🎂</span></p>
         <p>Happy Birthday My Love <span style="font-style:normal;">❤️</span></p>
       </div>
 
       <p class="letter-sign">with love, always<br/>Kelvin <span style="font-style:normal;">❤️</span></p>
 
-      <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;">
+      <div class="btn-row">
         <button class="main-btn ghost-btn" id="musicToggle" onclick="App.toggleMusic()">
           ⏸ Pause Music
         </button>

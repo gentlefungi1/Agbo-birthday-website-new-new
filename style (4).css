@@ -73,7 +73,7 @@ body {
 
 
 /* ═══════════════════════════════════════════
-   VIEW SYSTEM
+   VIEW SYSTEM — mobile base
 ═══════════════════════════════════════════ */
 .view {
   position: absolute;
@@ -81,10 +81,12 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;          /* mobile: always start from top */
   justify-content: center;
   padding: 1.5rem 1rem;
-  padding-left:  max(1rem, env(safe-area-inset-left));
+  padding-top: max(1.5rem, env(safe-area-inset-top));
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  padding-left: max(1rem, env(safe-area-inset-left));
   padding-right: max(1rem, env(safe-area-inset-right));
   z-index: 1;
   opacity: 0;
@@ -94,6 +96,12 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Countdown + Reveal: short content — centre vertically on all sizes */
+#view-countdown,
+#view-reveal {
+  align-items: center;
 }
 
 .view.active {
@@ -110,9 +118,20 @@ body {
 
 #view-memories,
 #view-gallery {
-  align-items: flex-start;
-  padding-top: 3rem;
-  padding-bottom: 5rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+#view-letter {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* On tall screens, centre the letter card */
+@media (min-height: 800px) {
+  #view-letter {
+    align-items: center;
+  }
 }
 
 
@@ -123,15 +142,16 @@ body {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border-radius: 24px;
+  border-radius: 20px;
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow);
 }
 
+/* Mobile base */
 .card-center {
   width: 100%;
   max-width: 780px;
-  padding: 3rem 2.5rem;
+  padding: 2rem 1.25rem;
   text-align: center;
 }
 
@@ -140,58 +160,74 @@ body {
   max-width: 1100px;
 }
 
+@media (min-width: 480px) {
+  .card-center  { padding: 2.5rem 2rem; border-radius: 22px; }
+}
+
+@media (min-width: 768px) {
+  .card-center  { padding: 3rem 2.5rem; border-radius: 24px; }
+}
+
 
 /* ═══════════════════════════════════════════
-   TYPOGRAPHY
+   TYPOGRAPHY — mobile base, scale up
 ═══════════════════════════════════════════ */
 .eyebrow {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--white-60);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
 .display-title {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(2rem, 7vw, 5.5rem);
+  font-size: 2rem;
   color: var(--white);
   text-shadow: 2px 3px 12px rgba(0,0,0,0.25);
   line-height: 1.15;
-  margin-bottom: 1rem;
+  margin-bottom: 0.875rem;
 }
 
 .hero-name {
-  font-size: clamp(2.2rem, 8vw, 6.5rem);
+  font-size: 2.2rem;
 }
 
 .section-title {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.6rem, 5vw, 3.2rem);
+  font-size: 1.5rem;
   color: var(--white);
   text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   line-height: 1.2;
 }
 
 .subtitle {
-  font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+  font-size: 0.95rem;
   color: var(--white-80);
   line-height: 1.7;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 480px) {
+  .eyebrow        { font-size: 0.7rem; }
+  .display-title  { font-size: clamp(2rem, 7vw, 5.5rem); margin-bottom: 1rem; }
+  .hero-name      { font-size: clamp(2.2rem, 8vw, 6.5rem); }
+  .section-title  { font-size: clamp(1.6rem, 5vw, 3.2rem); margin-bottom: 2rem; }
+  .subtitle       { font-size: clamp(0.95rem, 2.5vw, 1.2rem); margin-bottom: 2rem; }
 }
 
 
 /* ═══════════════════════════════════════════
-   COUNTDOWN
+   COUNTDOWN — mobile base
 ═══════════════════════════════════════════ */
 .countdown-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
@@ -200,13 +236,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem 0.5rem;
-  gap: 0.35rem;
+  padding: 0.875rem 0.25rem;
+  gap: 0.3rem;
 }
 
 .clock-num {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-size: clamp(1.75rem, 8vw, 4.5rem);
   color: var(--white);
   text-shadow: 2px 2px 6px rgba(0,0,0,0.25);
   line-height: 1;
@@ -214,10 +250,15 @@ body {
 }
 
 .clock-label {
-  font-size: clamp(0.55rem, 1.5vw, 0.7rem);
+  font-size: clamp(0.5rem, 1.8vw, 0.7rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--white-60);
+}
+
+@media (min-width: 480px) {
+  .countdown-grid { gap: 0.75rem; }
+  .clock-block    { padding: 1.25rem 0.5rem; }
 }
 
 .pulse .clock-num {
@@ -240,17 +281,17 @@ body {
 
 
 /* ═══════════════════════════════════════════
-   BUTTONS
+   BUTTONS — mobile base
 ═══════════════════════════════════════════ */
 .main-btn {
   display: inline-block;
   background: var(--white);
   color: #e84393;
-  padding: 0.9rem 2.25rem;
-  min-height: 48px;
+  padding: 0.875rem 1.75rem;
+  min-height: 52px;              /* larger tap target on mobile */
   border-radius: 999px;
   font-family: var(--font-body);
-  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   border: none;
@@ -258,6 +299,16 @@ body {
   box-shadow: 0 4px 24px rgba(0,0,0,0.12);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+@media (min-width: 480px) {
+  .main-btn {
+    padding: 0.9rem 2.25rem;
+    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+    min-height: 48px;
+  }
 }
 
 @media (hover: hover) {
@@ -289,21 +340,33 @@ body {
 
 
 /* ═══════════════════════════════════════════
-   MEMORY CARDS
+   MEMORY CARDS — mobile base (1 col)
 ═══════════════════════════════════════════ */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+}
+
+@media (min-width: 960px) {
+  .cards-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 .memory-card {
-  padding: 1.75rem 1.5rem;
+  padding: 1.375rem 1.25rem;
   text-align: center;
   color: var(--white);
   opacity: 0;
   transform: translateY(24px);
   transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.5s ease;
+}
+
+@media (min-width: 480px) {
+  .memory-card { padding: 1.75rem 1.5rem; }
 }
 
 .memory-card.visible {
@@ -320,22 +383,34 @@ body {
 
 .card-emoji {
   display: block;
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
+  font-size: 2rem;
+  margin-bottom: 0.625rem;
+}
+
+@media (min-width: 480px) {
+  .card-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
 }
 
 .card-heading {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+  font-size: 1.2rem;
   color: var(--white);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 480px) {
+  .card-heading { font-size: clamp(1.2rem, 3.5vw, 1.5rem); margin-bottom: 0.6rem; }
 }
 
 .card-body {
-  font-size: clamp(0.875rem, 2vw, 0.95rem);
+  font-size: 0.9rem;
   color: var(--white-80);
   line-height: 1.75;
+}
+
+@media (min-width: 480px) {
+  .card-body { font-size: clamp(0.875rem, 2vw, 0.95rem); }
 }
 
 .stagger-1 { transition-delay: 0.05s; }
@@ -347,21 +422,34 @@ body {
 
 
 /* ═══════════════════════════════════════════
-   PHOTO GALLERY — POLAROID STYLE
+   PHOTO GALLERY — mobile base (2 col)
 ═══════════════════════════════════════════ */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.875rem;
+}
+
+@media (min-width: 600px) {
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+}
+
+@media (min-width: 960px) {
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
 }
 
 .polaroid {
-  padding: 0.875rem 0.875rem 1.25rem;
-  transform: rotate(var(--rotate, 0deg));
+  padding: 0.625rem 0.625rem 1rem;
+  /* no rotation on mobile — looks bad in 2-col grid */
   opacity: 0;
   transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.5s ease;
   will-change: transform;
   cursor: pointer;
+}
+
+/* Rotation only on wider screens where there's room */
+@media (min-width: 600px) {
+  .polaroid { padding: 0.875rem 0.875rem 1.25rem; transform: rotate(var(--rotate, 0deg)); }
 }
 
 .polaroid.visible {
@@ -377,19 +465,24 @@ body {
 }
 
 .polaroid:active {
-  transform: rotate(0deg) scale(0.97);
+  transform: scale(0.97);
 }
 
-/* The actual photo inside a polaroid */
 .polaroid img {
   width: 100%;
   aspect-ratio: 4/3;
-  border-radius: 12px;
+  border-radius: 8px;
   object-fit: cover;
   display: block;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* Placeholder when no real photo yet */
+@media (min-width: 480px) {
+  .polaroid img { border-radius: 12px; }
+}
+
 .photo-placeholder {
   width: 100%;
   aspect-ratio: 4/3;
@@ -400,7 +493,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   font-size: 2rem;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .photo-placeholder span {
@@ -412,11 +505,15 @@ body {
 
 .polaroid-caption {
   color: var(--white-80);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   text-align: center;
-  margin-top: 0.875rem;
+  margin-top: 0.625rem;
   font-style: italic;
-  line-height: 1.5;
+  line-height: 1.45;
+}
+
+@media (min-width: 480px) {
+  .polaroid-caption { font-size: 0.875rem; margin-top: 0.875rem; }
 }
 
 
@@ -432,11 +529,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1.5rem;
-  gap: 1rem;
+  padding: 1.25rem 1rem;
+  gap: 0.875rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+}
+
+@media (min-width: 480px) {
+  #lightbox { padding: 2rem 1.5rem; gap: 1rem; }
 }
 
 #lightbox.open {
@@ -446,12 +547,19 @@ body {
 
 #lightbox-img {
   max-width: 100%;
-  max-height: 75vh;
-  border-radius: 16px;
+  max-height: 72vh;
+  border-radius: 12px;
   object-fit: contain;
   box-shadow: 0 8px 60px rgba(0,0,0,0.6);
   transform: scale(0.92);
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 480px) {
+  #lightbox-img { border-radius: 16px; max-height: 75vh; }
 }
 
 #lightbox.open #lightbox-img {
@@ -462,18 +570,22 @@ body {
   color: rgba(255,255,255,0.75);
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-align: center;
+}
+
+@media (min-width: 480px) {
+  #lightbox-caption { font-size: 1rem; }
 }
 
 #lightbox-close {
   position: absolute;
-  top: 1.25rem;
-  right: 1.5rem;
+  top: 1rem;
+  right: 1rem;
   background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.25);
   color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -490,70 +602,105 @@ body {
 
 
 /* ═══════════════════════════════════════════
-   FINAL LETTER
+   FINAL LETTER — mobile base
 ═══════════════════════════════════════════ */
-.letter-view {
-  /* Slight dim overlay to calm the energy */
-  background: rgba(0,0,0,0.15);
+.letter-card {
+  width: 100%;
+  max-width: 600px;
+  padding: 1.75rem 1.375rem 2rem;
+  border-radius: 20px;
+  text-align: center;
 }
 
-.letter-card {
-  max-width: 640px;
+@media (min-width: 480px) {
+  .letter-card { padding: 2.25rem 2rem; }
+}
+
+@media (min-width: 768px) {
+  .letter-card { padding: 3rem; border-radius: 24px; }
 }
 
 .letter-body {
   display: flex;
   flex-direction: column;
-  /* gap: 0.3rem; */
-  margin: 1rem 0 0.5rem;
+  gap: 1rem;
+  margin: 0.875rem 0 0.5rem;
+  text-align: left;
+}
+
+@media (min-width: 480px) {
+  .letter-body { gap: 1.4rem; margin: 1.25rem 0 0.75rem; }
 }
 
 .letter-body p {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-size: 1rem;
   color: var(--white);
-  line-height: 1.4;
+  line-height: 1.75;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+
+@media (min-width: 480px) {
+  .letter-body p { font-size: clamp(1.05rem, 1.8vw, 1.3rem); }
 }
 
 .letter-sign {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--white-60);
-  margin-top: 2rem;
+  margin-top: 1.25rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+@media (min-width: 480px) {
+  .letter-sign { font-size: 1.15rem; margin-top: 2rem; }
+}
+
+.btn-row {
+  display: flex;
+  flex-direction: column;          /* mobile: stacked */
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.btn-row .main-btn {
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .btn-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .btn-row .main-btn {
+    width: auto;
+  }
 }
 
 
 /* ═══════════════════════════════════════════
-   RESPONSIVE — MOBILE
+   LANDSCAPE PHONES
 ═══════════════════════════════════════════ */
-
-/* Small phones */
-@media (max-width: 380px) {
-  .card-center { padding: 2rem 1.25rem; border-radius: 18px; }
-  .countdown-grid { gap: 0.5rem; }
-  .clock-block { padding: 1rem 0.25rem; }
-  .main-btn { padding: 0.875rem 1.5rem; font-size: 0.9rem; }
-}
-
-/* Regular phones */
-@media (max-width: 640px) {
-  .card-center { padding: 2.25rem 1.5rem; }
-  .cards-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.875rem; }
-  .polaroid { --rotate: 0deg !important; }
-  #view-memories, #view-gallery { padding-top: 2rem; padding-bottom: 4rem; }
-  .letter-body { text-align: center; }
-  .letter-sign { text-align: center; }
-}
-
-/* Landscape phones */
 @media (max-height: 500px) and (orientation: landscape) {
-  .view { align-items: flex-start; padding-top: 1.5rem; padding-bottom: 2rem; }
-  .display-title { font-size: clamp(1.6rem, 5vw, 3rem); margin-bottom: 0.5rem; }
-  .subtitle { margin-bottom: 1rem; }
-  .countdown-grid { gap: 0.5rem; }
-  .clock-block { padding: 0.75rem 0.5rem; }
+  .display-title  { font-size: clamp(1.5rem, 5vw, 2.5rem); margin-bottom: 0.5rem; }
+  .subtitle       { margin-bottom: 0.875rem; font-size: 0.9rem; }
+  .countdown-grid { gap: 0.4rem; }
+  .clock-block    { padding: 0.6rem 0.25rem; }
+  #view-memories,
+  #view-gallery   { padding-top: 1.25rem; padding-bottom: 2.5rem; }
+  .letter-card    { padding: 1.25rem 1.25rem 1.5rem; }
+  .letter-body    { gap: 0.625rem; margin: 0.5rem 0 0.25rem; }
+  .letter-body p  { font-size: 0.875rem; line-height: 1.6; }
+  .letter-sign    { margin-top: 0.75rem; }
+  .btn-row        { margin-top: 1rem; }
 }
