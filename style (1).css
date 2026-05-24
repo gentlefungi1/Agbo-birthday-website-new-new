@@ -94,6 +94,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  margin-bottom: 200px;
 }
 
 .view.active {

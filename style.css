@@ -531,15 +531,15 @@ body {
 ═══════════════════════════════════════════ */
 
 /* Small phones */
-@media (max-width: 380px) {
+/* @media (max-width: 380px) {
   .card-center { padding: 2rem 1.25rem; border-radius: 18px; }
   .countdown-grid { gap: 0.5rem; }
   .clock-block { padding: 1rem 0.25rem; }
   .main-btn { padding: 0.875rem 1.5rem; font-size: 0.9rem; }
-}
+} */
 
 /* Regular phones */
-@media (max-width: 640px) {
+@media-screen (min-width: 320) and (max-width: 480px) {
   .card-center { padding: 2.25rem 1.5rem; }
   .cards-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.875rem; }
@@ -550,10 +550,10 @@ body {
 }
 
 /* Landscape phones */
-@media (max-height: 500px) and (orientation: landscape) {
+/* @media (max-height: 500px) and (orientation: landscape) {
   .view { align-items: flex-start; padding-top: 1.5rem; padding-bottom: 2rem; }
   .display-title { font-size: clamp(1.6rem, 5vw, 3rem); margin-bottom: 0.5rem; }
   .subtitle { margin-bottom: 1rem; }
   .countdown-grid { gap: 0.5rem; }
   .clock-block { padding: 0.75rem 0.5rem; }
-}
+} */
